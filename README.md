@@ -1,6 +1,6 @@
 # OpenClaw  
 # 初始化与配置
-
+```
   命令                   说明
   ---------------------- ----------------------
   `openclaw setup`       初始化配置和工作空间
@@ -9,7 +9,7 @@
   `openclaw doctor`      健康检查
   `openclaw status`      查看系统状态
   `openclaw dashboard`   打开控制面板
-
+```
 ## setup 选项
 
 ``` bash
@@ -34,7 +34,7 @@ openclaw onboard --install-daemon
 ------------------------------------------------------------------------
 
 # Gateway 网关
-
+```
 ## 基本命令
 
   命令                           说明
@@ -46,7 +46,7 @@ openclaw onboard --install-daemon
   `openclaw gateway status`      查看状态
   `openclaw gateway install`     安装为服务
   `openclaw gateway uninstall`   卸载服务
-
+```
 ## 启动参数
 
 ``` bash
@@ -112,7 +112,7 @@ openclaw message send \
 ------------------------------------------------------------------------
 
 ## 消息子命令
-
+```
   命令                      说明
   ------------------------- ----------
   `message send`            发送消息
@@ -125,7 +125,7 @@ openclaw message send \
   `message search`          搜索
   `message thread create`   创建话题
   `message thread list`     列出话题
-
+```
 ------------------------------------------------------------------------
 
 # Agent 对话
@@ -160,7 +160,7 @@ openclaw agent \
 # 频道管理
 
 ## 基本命令
-
+```
   命令                说明
   ------------------- ----------
   `channels list`     列出频道
@@ -170,7 +170,7 @@ openclaw agent \
   `channels remove`   删除账号
   `channels login`    登录
   `channels logout`   登出
-
+```
 ------------------------------------------------------------------------
 
 ## 支持频道
@@ -216,7 +216,7 @@ openclaw channels login --channel whatsapp
 ------------------------------------------------------------------------
 
 # 模型配置
-
+```
   命令                 说明
   -------------------- --------------
   `models list`        查看模型
@@ -224,13 +224,13 @@ openclaw channels login --channel whatsapp
   `models set`         设置主模型
   `models set-image`   设置图像模型
   `models scan`        推荐模型
-
+```
 ------------------------------------------------------------------------
 
 # 定时任务
 
 ## 任务管理
-
+```
   命令             说明
   ---------------- ----------
   `cron list`      查看任务
@@ -240,7 +240,7 @@ openclaw channels login --channel whatsapp
   `cron enable`    启用
   `cron disable`   禁用
   `cron run`       立即执行
-
+```
 ### 示例
 
 ``` bash
