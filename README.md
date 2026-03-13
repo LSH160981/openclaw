@@ -1,205 +1,244 @@
-# OpenClaw
- 
+# OpenClaw CLI
 
-------------------------------------------------------------------------
+OpenClaw 是一个 **多频道 AI Agent 自动化平台 CLI**，支持：
 
-# Overview
-
-**OpenClaw** 是一个 **AI Agent 自动化网关系统**。
-
-它将 **AI、消息平台、浏览器自动化、远程节点控制**整合到一个 CLI 中。
-
-核心能力：
-
--   多平台消息发送
--   AI Agent 自动对话
--   WebSocket Gateway
+-   多消息渠道（Telegram / WhatsApp / Discord 等）
+-   AI Agent 对话
+-   定时任务
 -   浏览器自动化
--   定时任务系统
--   远程设备控制
+-   远程节点控制
 -   记忆系统
-
-支持平台：
-
-    WhatsApp
-    Telegram
-    Discord
-    Slack
-    Signal
-    iMessage
-    Google Chat
-    Microsoft Teams
-    Mattermost
+-   WebSocket 网关
 
 ------------------------------------------------------------------------
 
-# Features
+# 目录
 
-### AI Agent
-
-``` bash
-openclaw agent --message "总结今天新闻"
-```
-
--   AI 自动回复
--   多模型支持
--   长期记忆系统
--   Agent 自动化
-
-------------------------------------------------------------------------
-
-### Messaging Gateway
-
-统一发送消息到多个平台：
-
-``` bash
-openclaw message send --channel telegram --target @chat --message "hello"
-```
-
-支持：
-
-    WhatsApp
-    Telegram
-    Discord
-    Slack
-    Signal
+-   初始化与配置
+-   Gateway 网关
+-   消息与会话
+-   频道管理
+-   模型配置
+-   定时任务
+-   记忆系统
+-   配置管理
+-   技能系统
+-   浏览器自动化
+-   节点管理
+-   更新与维护
+-   常见场景
 
 ------------------------------------------------------------------------
 
-### Browser Automation
+# 初始化与配置
+
+  命令                   说明
+  ---------------------- ----------------------
+  `openclaw setup`       初始化配置和工作空间
+  `openclaw configure`   交互式配置向导
+  `openclaw onboard`     完整入门向导
+  `openclaw doctor`      健康检查
+  `openclaw status`      查看系统状态
+  `openclaw dashboard`   打开控制面板
+
+## setup 选项
 
 ``` bash
-openclaw browser open https://github.com
-openclaw browser screenshot
-```
-
-支持：
-
-    点击
-    输入
-    截图
-    抓取 DOM
-    自动化操作
-
-------------------------------------------------------------------------
-
-### Scheduler
-
-``` bash
-openclaw cron add --cron "0 9 * * *" --system-event "早安"
-```
-
-------------------------------------------------------------------------
-
-### Remote Nodes
-
-``` bash
-openclaw nodes run --node macbook -- ls
-```
-
-------------------------------------------------------------------------
-
-# Installation
-
-### Install via npm
-
-``` bash
-npm install -g openclaw
-```
-
-### Install via npx
-
-``` bash
-npx openclaw setup
-```
-
-### Verify installation
-
-``` bash
-openclaw --version
-```
-
-------------------------------------------------------------------------
-
-# Quick Start
-
-初始化：
-
-``` bash
+openclaw setup --workspace <目录>
 openclaw setup --wizard
+openclaw setup --non-interactive
+openclaw setup --mode local|remote
+openclaw setup --remote-url <URL>
+openclaw setup --remote-token <令牌>
 ```
 
-启动网关：
+## onboard 选项
 
 ``` bash
-openclaw gateway start
-```
-
-检查状态：
-
-``` bash
-openclaw status
-```
-
-------------------------------------------------------------------------
-
-# Gateway
-
-``` bash
-openclaw gateway start
-openclaw gateway status
-openclaw gateway stop
+openclaw onboard --reset
+openclaw onboard --flow quickstart
+openclaw onboard --flow advanced
+openclaw onboard --gateway-port 18789
+openclaw onboard --install-daemon
 ```
 
 ------------------------------------------------------------------------
 
-# Messaging
+# Gateway 网关
+
+## 基本命令
+
+  命令                           说明
+  ------------------------------ ------------
+  `openclaw gateway`             前台启动
+  `openclaw gateway start`       后台启动
+  `openclaw gateway stop`        停止
+  `openclaw gateway restart`     重启
+  `openclaw gateway status`      查看状态
+  `openclaw gateway install`     安装为服务
+  `openclaw gateway uninstall`   卸载服务
+
+## 启动参数
 
 ``` bash
-openclaw message send --target +8613800138000 --message "你好"
+openclaw gateway --port 18789
+openclaw gateway --bind lan
+openclaw gateway --token <TOKEN>
+openclaw gateway --auth token
+openclaw gateway --password <PASSWORD>
+openclaw gateway --force
+openclaw gateway --dev
+openclaw gateway --verbose
+openclaw gateway --tailscale serve
 ```
 
-Telegram：
+## 日志
 
 ``` bash
-openclaw message send --channel telegram --target @mychat --message "Hello"
+openclaw logs
+openclaw logs --follow
+openclaw logs --limit 500
+openclaw logs --json
+openclaw logs --plain
 ```
 
-Discord：
+## RPC 调用
 
 ``` bash
+openclaw gateway call <method> --params '<JSON>'
+openclaw gateway health
+openclaw gateway probe
+openclaw gateway discover
+```
+
+------------------------------------------------------------------------
+
+# 消息与会话
+
+## 发送消息
+
+``` bash
+openclaw message send --target <目标> --message "内容"
+```
+
+### 指定频道
+
+``` bash
+openclaw message send --channel whatsapp --target +8613800138000 --message "你好"
+
+openclaw message send --channel telegram --target @mychat --message "Hi"
+
 openclaw message send --channel discord --target channel:123456 --message "Hello"
 ```
 
-发送媒体：
+### 发送媒体
 
 ``` bash
-openclaw message send --target +8613800138000 --message "看这个" --media ./image.jpg
+openclaw message send \
+--target +8613800138000 \
+--message "看这个" \
+--media /path/to/image.jpg
 ```
 
 ------------------------------------------------------------------------
 
-# Channels
+## 消息子命令
 
-查看频道：
+  命令                      说明
+  ------------------------- ----------
+  `message send`            发送消息
+  `message poll`            投票
+  `message react`           添加表情
+  `message read`            标记已读
+  `message edit`            编辑
+  `message delete`          删除
+  `message pin`             置顶
+  `message search`          搜索
+  `message thread create`   创建话题
+  `message thread list`     列出话题
+
+------------------------------------------------------------------------
+
+# Agent 对话
 
 ``` bash
-openclaw channels list
+openclaw agent --message "帮我总结今天的新闻"
 ```
 
-检查状态：
+指定会话
 
 ``` bash
-openclaw channels status
+openclaw agent --message "继续" --to +8613800138000
 ```
 
-添加 Telegram：
+本地模式
 
 ``` bash
-openclaw channels add --channel telegram --token $TELEGRAM_BOT_TOKEN
+openclaw agent --message "你好" --local
 ```
 
-登录 WhatsApp：
+直接回复
+
+``` bash
+openclaw agent \
+--message "总结" \
+--to +8613800138000 \
+--deliver
+```
+
+------------------------------------------------------------------------
+
+# 频道管理
+
+## 基本命令
+
+  命令                说明
+  ------------------- ----------
+  `channels list`     列出频道
+  `channels status`   查看状态
+  `channels logs`     查看日志
+  `channels add`      添加账号
+  `channels remove`   删除账号
+  `channels login`    登录
+  `channels logout`   登出
+
+------------------------------------------------------------------------
+
+## 支持频道
+
+-   WhatsApp
+-   Telegram
+-   Discord
+-   Slack
+-   Signal
+-   iMessage
+-   Google Chat
+-   Microsoft Teams
+-   Mattermost
+
+------------------------------------------------------------------------
+
+## 添加频道示例
+
+### Telegram
+
+``` bash
+openclaw channels add \
+--channel telegram \
+--token $TELEGRAM_BOT_TOKEN
+```
+
+### Discord
+
+``` bash
+openclaw channels add \
+--channel discord \
+--account work \
+--name "Work Bot" \
+--token $DISCORD_BOT_TOKEN
+```
+
+### WhatsApp
 
 ``` bash
 openclaw channels login --channel whatsapp
@@ -207,133 +246,141 @@ openclaw channels login --channel whatsapp
 
 ------------------------------------------------------------------------
 
-# Agent
+# 模型配置
+
+  命令                 说明
+  -------------------- --------------
+  `models list`        查看模型
+  `models status`      查看状态
+  `models set`         设置主模型
+  `models set-image`   设置图像模型
+  `models scan`        推荐模型
+
+------------------------------------------------------------------------
+
+# 定时任务
+
+## 任务管理
+
+  命令             说明
+  ---------------- ----------
+  `cron list`      查看任务
+  `cron add`       添加任务
+  `cron edit`      编辑
+  `cron rm`        删除
+  `cron enable`    启用
+  `cron disable`   禁用
+  `cron run`       立即执行
+
+### 示例
 
 ``` bash
-openclaw agent --message "帮我写一封邮件"
+openclaw cron add \
+--name "每小时提醒" \
+--every 1h \
+--system-event "该休息一下了"
 ```
 
-指定会话：
-
 ``` bash
-openclaw agent --message "继续" --to +8613800138000
-```
-
-本地模式：
-
-``` bash
-openclaw agent --local --message "你好"
+openclaw cron add \
+--name "工作日早间" \
+--cron "0 9 * * 1-5" \
+--system-event "开始工作"
 ```
 
 ------------------------------------------------------------------------
 
-# Models
+# 记忆系统
 
 ``` bash
-openclaw models list
-openclaw models set claude-3-opus
-openclaw models status
+openclaw memory status
+openclaw memory index
+openclaw memory search "上次讨论的项目"
 ```
 
 ------------------------------------------------------------------------
 
-# Cron Scheduler
-
-``` bash
-openclaw cron add --name "早间提醒" --cron "0 9 * * *" --system-event "早安"
-openclaw cron list
-openclaw cron run 1
-```
-
-------------------------------------------------------------------------
-
-# Browser Automation
+# 浏览器自动化
 
 ``` bash
 openclaw browser start
-openclaw browser open https://github.com
+openclaw browser open https://example.com
+openclaw browser snapshot --format aria
 openclaw browser screenshot --full-page
-openclaw browser snapshot
+openclaw browser stop
 ```
 
 ------------------------------------------------------------------------
 
-# Node Control
+# 节点管理
 
 ``` bash
-openclaw nodes list
-openclaw nodes run --node my-mac -- ls
-openclaw nodes location get --node my-phone
+openclaw devices list
+openclaw devices approve <id>
+openclaw devices reject <id>
+openclaw devices remove <id>
 ```
 
-------------------------------------------------------------------------
-
-# Memory System
-
-工作空间：
-
-    ~/.openclaw/workspace
-
-    MEMORY.md
-    memory/
-      2026-03-10.md
-      2026-03-09.md
-    HEARTBEAT.md
-
-------------------------------------------------------------------------
-
-# Security
+远程执行
 
 ``` bash
-openclaw security audit
-openclaw security audit --deep
-openclaw doctor
+openclaw nodes run --node my-mac ls -la
 ```
 
 ------------------------------------------------------------------------
 
-# Maintenance
+# 更新与维护
 
 ``` bash
 openclaw update
-openclaw backup create
-openclaw reset --scope config
+openclaw update --check
 ```
-
-------------------------------------------------------------------------
-
-# Global Options
-
-  Option      Description
-  ----------- -------------
-  --dev       开发模式
-  --profile   使用配置
-  --json      JSON 输出
-  --plain     纯文本输出
-
-------------------------------------------------------------------------
-
-# Contributing
-
-欢迎贡献代码。
-
-开发环境：
 
 ``` bash
-npm install
-npm run dev
+openclaw backup create
+openclaw backup verify <file>
 ```
 
-流程：
+``` bash
+openclaw reset
+openclaw reset --scope config
+openclaw reset --scope full
+```
 
-    fork
-    clone
-    branch
-    commit
-    pull request
+``` bash
+openclaw uninstall
+openclaw uninstall --all
+```
+
+------------------------------------------------------------------------
+
+# 常见场景
+
+## 首次安装
+
+``` bash
+openclaw setup --wizard
+openclaw configure
+openclaw gateway install
+openclaw gateway start
+```
+
+## Telegram
+
+``` bash
+openclaw channels add \
+--channel telegram \
+--token $TELEGRAM_BOT_TOKEN
+```
+
+## WhatsApp
+
+``` bash
+openclaw channels login --channel whatsapp
+```
 
 ------------------------------------------------------------------------
 
 # License
 
-MIT License
+MIT
