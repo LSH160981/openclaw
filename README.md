@@ -1,31 +1,5 @@
 # OpenClaw
-
-```{=html}
-<p align="center">
-```
-`<img src="https://raw.githubusercontent.com/YOUR_REPO/logo.png" width="160" />`{=html}
-```{=html}
-</p>
-```
-```{=html}
-<p align="center">
-```
-`<b>`{=html}AI Automation Gateway + Multi-Channel Messaging + Agent
-System`</b>`{=html}
-```{=html}
-</p>
-```
-```{=html}
-<p align="center">
-```
-![npm](https://img.shields.io/npm/v/openclaw)
-![license](https://img.shields.io/github/license/YOUR_REPO/openclaw)
-![stars](https://img.shields.io/github/stars/YOUR_REPO/openclaw)
-![issues](https://img.shields.io/github/issues/YOUR_REPO/openclaw)
-
-```{=html}
-</p>
-```
+ 
 
 ------------------------------------------------------------------------
 
